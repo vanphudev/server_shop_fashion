@@ -1,22 +1,20 @@
 "use strict";
 const {Model} = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
-   class nhom_loai extends Model {
+   class loai_san_pham extends Model {
       static associate(models) {
-         nhom_loai.hasMany(models.loai_san_pham, {
-            foreignKey: "ma_nhom_loai",
-            as: "nhom_loai_to_loai_san_pham",
-         });
+         loai_san_pham.belongsTo(models.nhom_loai, {foreignKey: "ma_nhom_loai", as: "ma_nhom_loai_belongto_nhom_loai"});
       }
    }
-   nhom_loai.init(
+   loai_san_pham.init(
       {
-         ma_nhom_loai: {
+         ma_loai: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
          },
-         ten_nhom_loai: {
+         ten_loai: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -24,8 +22,19 @@ module.exports = (sequelize, DataTypes) => {
                len: [1],
             },
          },
+         ma_nhom_loai: {
+            type: DataTypes.INTEGER,
+            references: {
+               model: "nhom_loai",
+               key: "ma_nhom_loai",
+            },
+         },
          thumbnail_image: {
             type: DataTypes.TEXT,
+         },
+         slug: {
+            type: DataTypes.STRING,
+            allowNull: false,
             validate: {
                len: [1],
             },
@@ -33,15 +42,11 @@ module.exports = (sequelize, DataTypes) => {
          chi_tiet: {
             type: DataTypes.TEXT,
          },
-         slug: {
-            type: DataTypes.STRING,
-            allowNull: false,
-         },
       },
       {
          sequelize,
-         modelName: "nhom_loai",
-         tableName: "nhom_loai",
+         modelName: "loai_san_pham",
+         tableName: "loai_san_pham",
          underscored: true,
          timestamps: true,
          paranoid: true,
@@ -53,5 +58,5 @@ module.exports = (sequelize, DataTypes) => {
          collate: "utf8mb4_unicode_ci",
       }
    );
-   return nhom_loai;
+   return loai_san_pham;
 };
