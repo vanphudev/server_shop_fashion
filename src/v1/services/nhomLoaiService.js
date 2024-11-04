@@ -10,6 +10,7 @@ const getAllNhomLoai = async (req, res) => {
             {
                model: db.loai_san_pham,
                as: "nhom_loai_to_loai_san_pham",
+               attributes: ["ma_loai", "ten_loai", "thumbnail_image", "slug", "chi_tiet"],
             },
          ],
       })
