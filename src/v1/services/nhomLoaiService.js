@@ -31,6 +31,7 @@ const getAllNhomLoai = async (req, res) => {
          if (error instanceof __RESPONSE.NotFoundError) {
             throw error;
          }
+         console.log(error);
          throw new __RESPONSE.BadRequestError({
             message: error.message,
             suggestion: "Please check your request",

@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
          tableName: "loai_san_pham",
          underscored: true,
          timestamps: true,
-         paranoid: true,
+         paranoid: false,
          freezeTableName: true,
          createdAt: "created_at",
          updatedAt: "updated_at",
