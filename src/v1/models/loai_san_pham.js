@@ -4,7 +4,7 @@ const {Model} = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
    class loai_san_pham extends Model {
       static associate(models) {
-         loai_san_pham.belongsTo(models.nhom_loai, {foreignKey: "ma_nhom_loai", as: "ma_nhom_loai_belongto_nhom_loai"});
+         loai_san_pham.belongsTo(models.nhom_loai, {foreignKey: "ma_nhom_loai", as: "loai_san_pham_belongto_nhom_loai"});
       }
    }
    loai_san_pham.init(

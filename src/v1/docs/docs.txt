@@ -46,3 +46,17 @@
          - npx sequelize-cli migration:generate --name gio_hang
          - npx sequelize-cli migration:generate --name chi_tiet_gio_hang
          - npx sequelize-cli migration:generate --name danh_gia_san_pham
+5. Lệnh tạo liên kết
+      hasMany(1-n), belongsTo(n-1), belongsToMany(n-n), hasOne(1-1) 
+      Employee.belongsToMany(models.Trip, {
+            through: models.TripEmployee,
+            foreignKey: "employee_id",
+            otherKey: "trip_id",
+            as: "employee_to_trip",
+         });
+      Trip.belongsToMany(models.Employee, {
+            through: models.TripEmployee,
+            foreignKey: "trip_id",
+            otherKey: "employee_id",
+            as: "trip_to_employee",
+         });
