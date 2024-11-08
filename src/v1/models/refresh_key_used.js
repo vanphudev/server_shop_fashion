@@ -2,51 +2,46 @@
 const {Model} = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-   class loai_san_pham extends Model {
+   class refresh_key_used extends Model {
       static associate(models) {
-         loai_san_pham.belongsTo(models.nhom_loai, {foreignKey: "ma_nhom_loai", as: "ma_nhom_loai_belongto_nhom_loai"});
+         refresh_key_used.belongsTo(models.key_store, {
+            foreignKey: "key_store_id",
+            as: "key_store_id_belongto_key_store",
+         });
       }
    }
-   loai_san_pham.init(
+   refresh_key_used.init(
       {
-         ma_loai: {
+         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
          },
-         ten_loai: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-               len: [1],
-            },
-         },
-         ma_nhom_loai: {
+         key_store_id: {
             type: DataTypes.INTEGER,
             references: {
-               model: "nhom_loai",
-               key: "ma_nhom_loai",
+               model: "key_store",
+               key: "id",
             },
+            onDelete: "CASCADE",
          },
-         thumbnail_image: {
+         refresh_token: {
             type: DataTypes.TEXT,
-         },
-         slug: {
-            type: DataTypes.STRING,
             allowNull: false,
             validate: {
+               notEmpty: true,
                len: [1],
             },
          },
-         chi_tiet: {
-            type: DataTypes.TEXT,
+         used_at: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
          },
       },
       {
          sequelize,
-         modelName: "loai_san_pham",
-         tableName: "loai_san_pham",
+         modelName: "refresh_key_used",
+         tableName: "refresh_key_used",
          underscored: true,
          timestamps: true,
          paranoid: false,
@@ -55,5 +50,5 @@ module.exports = (sequelize, DataTypes) => {
          updatedAt: "updated_at",
       }
    );
-   return loai_san_pham;
+   return refresh_key_used;
 };
